@@ -1,0 +1,18 @@
+Caching Nedir?
+ -> Çok sýk kullanýlan datalarýn kaydedilme tekniðine denir.
+ -> Datanýn kaydedilmesi ve ihtiyaç halinde okunmasýna denir.
+ -> Data neden cache'lenir, daha hýzlý response alabilmek ve gereksiz maliyete girmemek için,
+ ayrýca caching ile performans ve ölçeklenebilirlik(1 kiþide de 1 milyon kiþide de yakýn hýzlarda çalýþmasý durumu) artar.
+ -> Cache ikiye ayrýlýr;
+	-> In-MemoryCaching(Private Cache)
+	-> DistributedCaching(Shared Cache)
+
+
+In-MemoryCache Nedir?
+  -> Uygulamanýn kendi memory'isinde (ram'inde) data tutulma tekniðidir.
+  -> Kullanýcýya data gösterileceði zaman ilk önce db'ye baðlanmak yerine ilgili memory'de data var mý yok mu ona bakar. Ýlgili data cache'de yoksa db'ye baðlanýr datayý alýr, kullanýcýya göstermeden önce datayý cache yani ram'e kaydeder. Daha sonra baþka kullanýcý o dataya ihtiyaç duyduðunda db yerine direk memory'den bulup kullanýcýya gösterir.
+   -> Load balancer'lý bir yapýda iki ayrý sunucuda çalýþan bir proje düþünelim. Bu durumda sýkýntý þu, 
+   her server'in kendi memory'isini kullanacaðý için caching iþlemlerinde senkron problemi oluþabilir.
+   Çözümlerden biri, load balancer'a hangi kullanýcý hangi server'a yönlendirildiyse bundan sonraki isteklerinde de oraya yönlendirilmesini saðlamak. Bu sayede farklý data görmek yerine ayný datayý görür ama kullanýcýlar arasý server farklýysa farklý data görülebilir o yüzden kýsmi çözümdür. (sticky session). Farklý sunucularda çalýþan projemiz varsa distributed cache'e yani projeden baðýmsýz merkezi bir cache yapýsýna ihtiyacýmýz var.
+
+
