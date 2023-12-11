@@ -16,3 +16,28 @@ In-MemoryCache Nedir?
    Çözümlerden biri, load balancer'a hangi kullanýcý hangi server'a yönlendirildiyse bundan sonraki isteklerinde de oraya yönlendirilmesini saðlamak. Bu sayede farklý data görmek yerine ayný datayý görür ama kullanýcýlar arasý server farklýysa farklý data görülebilir o yüzden kýsmi çözümdür. (sticky session). Farklý sunucularda çalýþan projemiz varsa distributed cache'e yani projeden baðýmsýz merkezi bir cache yapýsýna ihtiyacýmýz var.
 
 
+Distributed Caching Nedir?
+   -> Uygulamanýn memory'sinde deðil tamamen ayrý bir yerde cache'lenmesine denir.
+   -> Veri tutarsýzlýðýnýn önüne geçilmiþ oluyor.(Tüm sunuculardaki uygulamalar cache için ortak bir yere bakacak)
+   -> Uygulamanýn ayaða kaldýrýldýðý sunucu inmemory'deyken yeniden baþlatýlsa cache'deki veriler uçarken distributed'da bu durum çözülmüþtür.
+   -> Hýz olarak in-memory'e nazaran bir týk daha yavaþtýr. Sonuçta farklý sunucuya istek atýyoruz.
+   
+
+
+On-Demand Caching Nedir?
+   -> Dataya talep olduðunda cache'liyor. Talep edilmediðinde data cache'lenmiyor.
+
+
+PrePopulation Caching Nwdir?
+   -> Uygulama ayaða kalktýðýnda, datalarýn talep gelmeden cache'lenmesi iþlemine denir.
+
+
+Cache Ömrü (Absolute time ve Sliding Time) nedir?
+	-> Absolute Time, bir cache oluþturulurken ömür biçiyoruz. (örneðin 5 dakika sonra memory'den sil gibi) 
+	-> Sliding Time, bir cache memory'de belli bir süre içinde tekrar istenirse ömrü bir o kadar daha uzar. (örneðin 5 dakika ayarlandý ve 5 dakika içinde bir istek geldi tekrar 5 dakika daha cache'de kalýr.)
+    -> Absolute ve Sliding Time ayný anda verilebilir.
+
+
+
+
+
