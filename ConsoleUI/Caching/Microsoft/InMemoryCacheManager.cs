@@ -10,15 +10,22 @@ namespace ConsoleUI.Caching.Microsoft
     public class InMemoryCacheManager : ICacheService
     {
         private readonly IMemoryCache _memoryCache;
+        private readonly MemoryCacheEntryOptions _options;
 
         public InMemoryCacheManager(IMemoryCache memoryCache)
         {
             _memoryCache = memoryCache;
+            _options = new MemoryCacheEntryOptions
+            {
+                AbsoluteExpiration = DateTime.Now.AddSeconds(20), // 20 saniye sonunda erişilse de data expire olacak
+                SlidingExpiration = TimeSpan.FromSeconds(10), // 10 saniye içinde erişilirse tekrardan bir 10 saniye daha data tutulacak
+                Priority = CacheItemPriority.Normal, // memory dolduğunda cache'lerden keylerin silinmesi öncelik sırasına göre belirlenir.
+            };
         }
 
         public void Add(object key, object value)
         {
-            _memoryCache.Set(key, value);
+            _memoryCache.Set(key, value, _options);
         }
 
         public object Get(object key)

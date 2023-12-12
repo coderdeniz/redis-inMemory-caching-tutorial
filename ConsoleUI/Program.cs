@@ -20,17 +20,26 @@ namespace ConsoleUI
 
             cacheService.Add("tarih", date);
 
-            date = (DateTime)cacheService.Get("tarih");
+            Thread.Sleep(2000);
 
-            Console.WriteLine(date);
+            bool isExist = cacheService.IsExist("tarih",out object cacheValue);
 
-            cacheService.Remove("tarih");
+            if (isExist)
+            {
+                Console.WriteLine(cacheValue);
+            }
+            else
+            {
+                Console.WriteLine("cache'deki data expire olmuş");
+            }
 
-            cacheService.Add("tarih", DateTime.Now.AddSeconds(10));
+            //cacheService.Remove("tarih");
 
-            date = (DateTime)cacheService.Get("tarih");
+            //cacheService.Add("tarih", DateTime.Now.AddSeconds(10));
 
-            Console.WriteLine(date);
+            //date = (DateTime)cacheService.Get("tarih");
+
+            //Console.WriteLine(date);
 
         }
 
