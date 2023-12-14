@@ -15,20 +15,22 @@ namespace ConsoleUI
             
             ICacheService cacheService = ServiceTool.ServiceProvider.GetService<ICacheService>();
 
-            Product p = new Product()
-            {
-                Id = 1,
-                Name = "Kalem",
-                Price = 200
-            };
 
-            cacheService.Add(p.Id, p);
 
-            //Thread.Sleep(3000);
+            //Product p = new Product()
+            //{
+            //    Id = 1,
+            //    Name = "Kalem",
+            //    Price = 200
+            //};
 
-            cacheService.Remove(p.Id);
+            //cacheService.Add(p.Id, p);
 
-            Thread.Sleep(10);
+            ////Thread.Sleep(3000);
+
+            //cacheService.Remove(p.Id);
+
+            //Thread.Sleep(10);
 
             //for (int i = 0; i < 10; i++)
             //{

@@ -8,4 +8,71 @@ Redis(Remote Dictionary Server) nedir?
  -> Kullanýcýlarýn session(oturum) bilgileri tutulur. InMemory'de farklý instance'lar olursa düzgün tutulamaz.
 
 
+ redis docker ayaða kaldýrma
+    
+	-> redis default port 6379
+	-> docker run -p 6380:6379 --name some-redis -d redis
+	-> docker exec -it 5f8(containerId) sh
+	-> redis-cli yaz gelen # iþaretine
+	-> ping yaz pong cevabýný alýrsan ok'dur
+
+
+redis commander (redis arayüzü)
+  
+     -> redis-commander --redis-port 6380
+	 -> localhost:8081
+
+
+redis veri tipleri
+
+	-> redis string: her tür veritipini(string,int,long,short) içinde barýndan tip, binary olarak tutuyor.
+		
+	-> redis list: liste þeklinde data ekliyebiliyoruz. sondan ekle baþtan ekle tarzýndan komutta verebiliyoruz. c#'daki list'e benziyor.
+		
+	-> redis set: list'ten farký içerisindeki datalar unique olmalýdýr, diðer fark set'lerde veri random þekilde dizine eklenir.(baþa sona ortaya) 
+		
+	-> redis sorted set: sýralama üzerine veritipidir. Skora göre sýralama yapar. Ayný skor yazarsan alt alta yazar. Normalde skoru küçük olan önce yazýlýr.
+		
+	-> redis hash: key-value olarak deðer tutabiliriz, c#'taki dictionary gibi. Liste gibi ama key-value þeklinde datalarý tutuyor. sýralama yok onun yerine key var.
+
+
+redis-cli komut:
+	
+	 -> get veri çekmek
+	 -> set veri göndermek
+	 -> del keyi silmek
+	 -> getrange name 1 2 (aralýðý alýr)
+	 -> INCR key (sayýsýný 1 arttýr)
+	 -> INCRBY key 10 (sayýsýný 10 arttýr)
+	 -> DECR key (sayýsýný 1 azalt)
+	 -> DECR key 10 (sayýsýný 10 azalt)
+	 -> APPEND key value (ilave veri eklemek)
+
+	 -> LPUSH kitaplar kitap1 (listeye kitap1 eklendi, left push olduðundan dolayý baþýna ekledi)
+	 -> RPUSH kitaplar kitap1 (listeye kitap1 eklendi, right push olduðundan dolayý sonuna ekledi)
+	 -> LRANGE kitaplar 0 -1 (0'dan liste sonuna kadar datayý al)
+	 -> LPOP kitaplar (listenin en solundan yani 0'ýncý index'ten datayý siler)
+	 -> RPOP kitaplar (listenin sonundaki elemaný siler)
+	 -> LINDEX kitaplar 1 (listenin 2.elemaný gelir)
+
+	 -> SADD renk mavi(set'e data ekle)
+	 -> SMEMBERS renk (value'lar gelir)
+	 -> SREM renk mavi (maviyi siler)
+
+	 -> ZADD renk 1 mavi(sorted set'e skora göre data ekler, skor küçükten büyüðe doðru gider)
+	 -> ZRANGE renk 0 -1 (value'lar gelir)
+	 -> ZRANGE renk 0 -1 withscores (value'lar skorlarýyla birlikte gelir)
+
+	 -> HMSET word pen kalem (key-value olarak deðer atandý)
+	 -> HMGET word pen (kalem datasýný çeker,z)
+	 -> HDEL word pen (key'i pen olaný sil)
+	 -> HGETALL word (word dict'e büyün value'leri getir)
+
+not: redis datayý encode ettiði için türkçe karakter gönderilemiyor.
+Göndermek için: 
+				 redis-cli --raw þeklinde yazmamýz lazým.
+
+
+
+
 
