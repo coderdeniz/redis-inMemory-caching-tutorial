@@ -1,0 +1,11 @@
+Redis(Remote Dictionary Server) nedir?
+---
+ -> Open-source geliþtirilen, datalarý memory'de tutan bir noSql veritabanýdýr.
+ -> Rakiplerine göre en büyük avantajý, veri tiplerine sahip olmasýdýr. (oop ile uygun)
+ -> Datalarý memory'de tuttuðundan dolayý okuma/yazma hýzý iyidir.
+ -> Uygulamalar 10 tane instance'dan oluþsa bile ortak bir memory'den cache'leri alacaðý için tutarlý olacaktýr.
+ -> Cachelemek istenen data, server'dan çekilir redis'e kaydedilir ve okunur. Cache'de varsa server'a gitmeden cache'den okunur ve client'a dönülür.
+ -> Kullanýcýlarýn session(oturum) bilgileri tutulur. InMemory'de farklý instance'lar olursa düzgün tutulamaz.
+
+
+
