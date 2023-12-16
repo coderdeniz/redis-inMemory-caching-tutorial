@@ -16,6 +16,7 @@ Redis(Remote Dictionary Server) nedir?
 	-> redis-cli yaz gelen # işaretine
 	-> ping yaz pong cevabını alırsan ok'dur
 
+	-> daha önce ayağa kaldırdığın duran container varsa: docker container start 5f8
 
 redis commander (redis arayüzü)
   

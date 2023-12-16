@@ -4,6 +4,11 @@ using ConsoleUI.Entity;
 using ConsoleUI.Extensions;
 using ConsoleUI.Utilities.IoC;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
+using System.Drawing;
+using System.Reflection;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace ConsoleUI
 {
@@ -15,7 +20,86 @@ namespace ConsoleUI
             
             ICacheService cacheService = ServiceTool.ServiceProvider.GetService<ICacheService>();
 
+           
 
+            
+            // resim okuma sıkıntılı
+        }
+
+        private static void ServiceCollection()
+        {
+            IServiceCollection serviceCollection = new ServiceCollection();
+            serviceCollection.AddDependencyResolvers(new ICoreModule[]
+            {
+                new CoreModule()
+            });
+        }
+
+
+        private static string ConvertImageToAscii(string imagePath, int width, int height)
+        {
+            // Resmi yükleyin
+            Bitmap image = new Bitmap(imagePath);
+
+            // Resmi küçültün
+            image = new Bitmap(image, width, height);
+
+            // ASCII sanatını oluştur
+            string asciiArt = "";
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    System.Drawing.Color pixelColor = image.GetPixel(x, y);
+                    int grayValue = (int)(pixelColor.R * 0.3 + pixelColor.G * 0.59 + pixelColor.B * 0.11);
+                    char asciiChar = GetAsciiChar(grayValue);
+                    asciiArt += asciiChar;
+                }
+                asciiArt += Environment.NewLine;
+            }
+
+            return asciiArt;
+        }
+        private static char GetAsciiChar(int grayValue)
+        {
+            char[] asciiChars = { ' ', '.', ':', '-', '=', '+', '*', '#', '%', '8', '@' };
+            int index = grayValue * (asciiChars.Length - 1) / 255;
+            return asciiChars[asciiChars.Length - index - 1];
+        }
+        private static void Test()
+        {
+
+            //C:\Users\belbi\OneDrive\Masaüstü\repo\coderdeniz\redis-inMemory\Redis_InMemory_Tutorial\ConsoleUI\images\download.png
+
+
+            //string path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images","download.png");
+
+            //string imagePath = "C:\\Users\\belbi\\OneDrive\\Masaüstü\\repo\\coderdeniz\\redis-inMemory\\Redis_InMemory_Tutorial\\ConsoleUI\\images\\download.png";
+
+            //Console.WriteLine(imagePath);
+
+            ////byte[] imageByte = File.ReadAllBytes(imagePath);
+
+            ////cacheService.Add("resim2", imageByte);
+
+            //var resimByte = cacheService.Get("resim2");
+
+
+            //// Resmin tam yolunu al
+            ////string resimYolu = imagePath; // Resminizin gerçek yolunu buraya ekleyin
+
+            //// Resmi ASCII sanatına dönüştür ve ekrana yazdır
+            //string asciiArt = ConvertImageToAscii(resimByte.ToString(), 100, 40); // Genişlik ve yüksekliği uygun değerlere değiştirin
+            //Console.WriteLine(asciiArt);
+
+
+            //Console.WriteLine();
+
+            //Console.WriteLine(cacheService.Get("name"));       
+
+            // cacheService.Add("name", "duman");
+            // var name = cacheService.Get("name");
+            // Console.WriteLine(name);
 
             //Product p = new Product()
             //{
@@ -23,6 +107,16 @@ namespace ConsoleUI
             //    Name = "Kalem",
             //    Price = 200
             //};
+
+            //string jsonProduct = JsonConvert.SerializeObject(p);
+
+            //cacheService.Add(p.Id, jsonProduct);
+
+            //var pFromRedis = cacheService.Get(p.Id).ToString();
+
+            //var product = JsonConvert.DeserializeObject<Product>(pFromRedis);
+
+            //Console.WriteLine(product.Name);
 
             //cacheService.Add(p.Id, p);
 
@@ -37,7 +131,7 @@ namespace ConsoleUI
             //    Console.Write(i);
             //    Thread.Sleep(500);
             //}
-            
+
             //var product = (Product)cacheService.Get(p.Id);
 
             //Console.WriteLine(product.Id + " " + product.Name + " " + product.Price);
@@ -81,16 +175,6 @@ namespace ConsoleUI
             //date = (DateTime)cacheService.Get("tarih");
 
             //Console.WriteLine(date);
-
-        }
-
-        private static void ServiceCollection()
-        {
-            IServiceCollection serviceCollection = new ServiceCollection();
-            serviceCollection.AddDependencyResolvers(new ICoreModule[]
-            {
-                new CoreModule()
-            });
         }
     }
 }
