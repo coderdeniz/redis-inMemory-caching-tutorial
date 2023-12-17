@@ -30,11 +30,29 @@ namespace ConsoleUI.Caching.Redis
 
             //_db.StringSet("ziyaretci", 100);
 
-            _db.StringIncrement("ziyaretci");
+            //_db.StringIncrement("ziyaretci");
 
-            Console.WriteLine(_db.StringGet("name"));
-            Console.WriteLine(_db.StringGet("status"));
-            Console.WriteLine(_db.StringGet("ziyaretci"));
+            //Console.WriteLine(_db.StringGet("name"));
+            //Console.WriteLine(_db.StringGet("status"));
+            //Console.WriteLine(_db.StringGet("ziyaretci"));
+
+            string listKey = "fruits";
+
+            // _db.ListRightPush(listKey, "apple");
+            // _db.ListRightPush(listKey, "orange");
+            // _db.ListRightPush(listKey, "banana");
+
+            // _db.ListRemove(listKey,"orange",1);
+
+            _db.ListLeftPush(listKey, "grapes");
+
+            if (_db.KeyExists(listKey))
+            {
+                foreach (var item in _db.ListRange("fruits", 0, -1))
+                {
+                    Console.WriteLine(item);
+                }
+            }
         }
 
         public void Connect()
