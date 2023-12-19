@@ -36,7 +36,7 @@ namespace ConsoleUI.Caching.Redis
             //Console.WriteLine(_db.StringGet("status"));
             //Console.WriteLine(_db.StringGet("ziyaretci"));
 
-            string listKey = "fruits";
+            //string listKey = "fruits";
 
             // _db.ListRightPush(listKey, "apple");
             // _db.ListRightPush(listKey, "orange");
@@ -44,15 +44,67 @@ namespace ConsoleUI.Caching.Redis
 
             // _db.ListRemove(listKey,"orange",1);
 
-            _db.ListLeftPush(listKey, "grapes");
+            //_db.ListLeftPush(listKey, "grapes");
 
-            if (_db.KeyExists(listKey))
+            //if (_db.KeyExists(listKey))
+            //{
+            //    foreach (var item in _db.ListRange("fruits", 0, -1))
+            //    {
+            //        Console.WriteLine(item);
+            //    }
+            //}
+
+            // HashSet<string> deger = new();
+
+            //_db.SetAdd("isimler", "item*11"); // set aynı değer eklenemez, random sıra ile eklenir. // c#'daki HashSet ile aynı
+
+            //_db.SetMembers("isimler").ToList().ForEach((item) =>
+            //{
+            //    Console.WriteLine(item);
+            //});
+
+            // _db.SetRemove("isimler", "item*1");
+            // 
+
+            // sorted set: skoru yüksek olan en başta olacak şekilde sıralanır. aynı elemanlar skorları farklı olsa da eklenmez
+
+            //_db.SortedSetAdd("meyve", "elma", 29); 
+            //_db.SortedSetAdd("meyve", "elma", 28);
+            //_db.SortedSetAdd("meyve", "armut2", 11);
+            //_db.SortedSetAdd("meyve", "portakal", 30);
+
+            //// _db.KeyExpire("meyve",DateTime.Now.AddSeconds(10)); var olan  key'e bitim süresi verme yeni oluşturulurken verirse görmez
+
+
+            ////_db.KeyExpire("test", DateTime.Now.AddDays(1));
+            ////_db.SortedSetAdd("test", "değer", 10);
+
+            //_db.SortedSetScan("meyve").ToList().ForEach(x =>
+            //{
+            //    //Console.WriteLine(x);
+            //    Console.WriteLine(x.ToString());
+            //});
+
+            // redis hash: c# dictionary karşılık geliyor
+            // aynı key'e aynı ekleyince değişmiyor
+
+            Dictionary<string, string> dictList = new Dictionary<string, string>();
+
+            _db.HashSet("dictList", "key-3", "value-22");
+            _db.HashSet("dictList", "key-2", "value-33");
+
+            //_db.HashDelete("dictList", "key-1");
+
+            if (_db.KeyExists("dictList"))
             {
-                foreach (var item in _db.ListRange("fruits", 0, -1))
+                _db.HashGetAll("dictList").ToList().ForEach(x =>
                 {
-                    Console.WriteLine(item);
-                }
+                    Console.WriteLine(x.Name + " -- " + x.Value);
+                });
             }
+
+            Console.WriteLine(_db.HashGet("dictList","key-2"));    
+
         }
 
         public void Connect()
