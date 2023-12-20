@@ -88,22 +88,22 @@ namespace ConsoleUI.Caching.Redis
             // redis hash: c# dictionary karşılık geliyor
             // aynı key'e aynı ekleyince değişmiyor
 
-            Dictionary<string, string> dictList = new Dictionary<string, string>();
+            //Dictionary<string, string> dictList = new Dictionary<string, string>();
 
-            _db.HashSet("dictList", "key-3", "value-22");
-            _db.HashSet("dictList", "key-2", "value-33");
+            //_db.HashSet("dictList", "key-3", "value-22");
+            //_db.HashSet("dictList", "key-2", "value-33");
 
-            //_db.HashDelete("dictList", "key-1");
+            ////_db.HashDelete("dictList", "key-1");
 
-            if (_db.KeyExists("dictList"))
-            {
-                _db.HashGetAll("dictList").ToList().ForEach(x =>
-                {
-                    Console.WriteLine(x.Name + " -- " + x.Value);
-                });
-            }
+            //if (_db.KeyExists("dictList"))
+            //{
+            //    _db.HashGetAll("dictList").ToList().ForEach(x =>
+            //    {
+            //        Console.WriteLine(x.Name + " -- " + x.Value);
+            //    });
+            //}
 
-            Console.WriteLine(_db.HashGet("dictList","key-2"));    
+            //Console.WriteLine(_db.HashGet("dictList","key-2"));    
 
         }
 
