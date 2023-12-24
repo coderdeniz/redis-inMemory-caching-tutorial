@@ -76,4 +76,4 @@ Göndermek için:
 
 
 
-
+not: decarator design pattern, adaptor design pattern, strategy design pattern..
